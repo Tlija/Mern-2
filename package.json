@@ -1,0 +1,22 @@
+{
+  "name": "mern-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd back-end && npm start\" \"cd front-end && npm start\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tlija/Mern-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tlija/Mern-2/issues"
+  },
+  "homepage": "https://github.com/Tlija/Mern-2#readme"
+}

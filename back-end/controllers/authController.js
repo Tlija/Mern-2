@@ -46,7 +46,7 @@ exports.singin=async(req,res)=>{
 }
 exports.currentUser=(req,res)=>{
     try {
-        res.send('hello')
+        res.send({user:req.user})
     } catch (error) {
         res.status(400).send({msg:error.message})
 

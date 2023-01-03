@@ -16,7 +16,7 @@ const costumeerror=(errors)=>errors.map((el)=>({
 const validatorResult=(req,res,next)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json( costumeerror(errors.array() ));
+      return res.status(400).json( {errors:costumeerror(errors.array() )});
     }else{
         return next()
     }
