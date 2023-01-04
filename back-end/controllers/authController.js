@@ -38,7 +38,8 @@ exports.singin=async(req,res)=>{
             }
             const payload={userid:existUser._id}
             const token=await jwt.sign(payload, process.env.PRIVATE_KEY,{expiresIn:'1h'});
-        res.send({user:existUser,token})
+             existUser.password=undefined
+            res.send({user:existUser,token:token})
     } catch (error) {
         res.status(400).send({msg:error.message})
 

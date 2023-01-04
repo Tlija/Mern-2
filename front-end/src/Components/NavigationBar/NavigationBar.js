@@ -12,11 +12,21 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../JS/actions/authActions';
+import { Link } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settingsguest = ['SignIn','SignUp'];
+const token= localStorage.getItem('token');
+
 
 function NavigationBar() {
+  const isauth= useSelector(state=>state.auth.isauth)
+  const user =useSelector(state=>state.auth.current_user)
+  
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -33,6 +43,12 @@ function NavigationBar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+  const dispatch=useDispatch()
+  const handleCloseUserMenulogout = () => {
+    setAnchorElUser(null);
+    dispatch(logout())
+    
   };
 
   return (
@@ -55,7 +71,7 @@ function NavigationBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            {user && user.name}
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -111,7 +127,7 @@ function NavigationBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+          {user && user.name}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
@@ -147,11 +163,32 @@ function NavigationBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {isauth?
+              settings.map((setting) => (
+                setting=='Logout'? <MenuItem key={setting} onClick={handleCloseUserMenulogout}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+                :setting== 'Profile'?<Link to='/profile'>
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
-              ))}
+                </Link>
+                :<MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))
+            :
+            settingsguest.map((setting) => (
+              setting=='SignIn'?<Link to='/signin'> <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              <Typography textAlign="center">{setting}</Typography>
+            </MenuItem></Link>:
+              <Link to='/signup'>
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+              </Link>
+            ))
+            }
             </Menu>
           </Box>
         </Toolbar>
