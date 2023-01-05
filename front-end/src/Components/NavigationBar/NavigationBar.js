@@ -103,7 +103,9 @@ function NavigationBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page) => ( page=="Products"?<Link to="/products" ><MenuItem key={page} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem></Link>:
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
@@ -130,7 +132,13 @@ function NavigationBar() {
           {user && user.name}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page) => ( page=="Products"?<Link to="/products" ><Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                {page}
+              </Button></Link>:
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -168,7 +176,7 @@ function NavigationBar() {
                 setting=='Logout'? <MenuItem key={setting} onClick={handleCloseUserMenulogout}>
                 <Typography textAlign="center">{setting}</Typography>
               </MenuItem>
-                :setting== 'Profile'?<Link to='/profile'>
+                :setting== 'Profile'?<Link to={`/${user._id}`}>
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>

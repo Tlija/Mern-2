@@ -7,6 +7,7 @@ import SignIn from './Components/NavigationBar/authForms/SignIn';
 import SignUp from './Components/NavigationBar/authForms/SignUp';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
+import ProductList from './Components/Product/ProductList';
 import Profile from './Components/User/Profile';
 import { getcurrentuser } from './JS/actions/authActions';
 
@@ -22,10 +23,11 @@ function App() {
     <div className="App">
       <NavigationBar/>
       <Routes>
+      <Route path='/products' element={<ProductList/>}  />
         <Route path='/' element={<Home/>}  />
         <Route path='/signin' element={<SignIn/>}  />
         <Route path='/signup' element={<SignUp/>}  />
-        <Route path='/profile' element={
+        <Route path='/:iduser' element={
           <PrivateRoute>
             <Profile/>
           </PrivateRoute>
